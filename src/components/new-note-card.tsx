@@ -3,7 +3,11 @@ import { X } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner"
 
-export function NewNoteCard() {
+interface newNoteCardProps {
+  onNoteCreated: (content: string) => void
+}
+
+export function NewNoteCard({ onNoteCreated }: newNoteCardProps) {
   const [showText, setShowText] = useState(true); 
   const [content, setContent] = useState("");
 
@@ -14,17 +18,18 @@ export function NewNoteCard() {
   function handleContentChange(event: ChangeEvent<HTMLTextAreaElement>){
     setContent(event.target.value);
 
-    console.log(event.target.value)
-
     if(event.target.value === "") setShowText(true);
   }
 
   function handleSaveNote(event: FormEvent){
     event.preventDefault();
 
-    if(content != "")
+    if(event.target.value != ""){
+      console.log(content)
+      onNoteCreated(content);
+      setShowText(true);
       toast.success("Nota criada com sucesso!");
-    else
+    }else
       toast.error("Nota não pode ser vazia");
   }
 
