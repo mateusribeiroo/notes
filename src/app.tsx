@@ -1,23 +1,38 @@
 import logo from "./assets/logo.svg";
 import { NoteCard } from "./components/note-card.tsx";
 import { NewNoteCard } from "./components/new-note-card.tsx";
-import { useState } from "react"
+import { useState } from "react";
+import { toast } from "sonner";
+
+interface Note {
+  id: string
+  date: Date
+  content: string
+}
 
 export function App() {
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState<Note[]>([]);
 
   function onNoteCreated(content: string){
     const newNote = {
-      id: Math.random(),
+      id: crypto.randomUUID(),
       date: new Date(),
       content
     }
 
-    setNotes([newNote, ...notes]);
+    const notesArray = [newNote, ...notes];
+
+    setNotes(notesArray);
+
+    localStorage.setItem('notes', JSON.stringfy(notesArray));
   }
 
   function onNoteDeleted(id: number){ // implementar
-    
+    // const i = notes.findIndex(item => item.id == id);
+    // const noteList = [...notes];
+    // noteList.splice(i, 1);
+    // setNotes([...noteList]);]
+    // toast.success("Nota removida com sucesso");
   }
 
   return (
@@ -41,7 +56,7 @@ export function App() {
         
         {
           notes.map(note => {
-            return <NoteCard key={note.id} note={note} />
+            return <NoteCard onNoteDeleted={onNoteDeleted} key={note.id} note={note} />
           })
         }
       </div>

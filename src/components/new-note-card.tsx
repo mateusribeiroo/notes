@@ -27,6 +27,7 @@ export function NewNoteCard({ onNoteCreated }: newNoteCardProps) {
     if(event.target.value != ""){
       console.log(content)
       onNoteCreated(content);
+      setContent("");
       setShowText(true);
       toast.success("Nota criada com sucesso!");
     }else
@@ -88,6 +89,7 @@ export function NewNoteCard({ onNoteCreated }: newNoteCardProps) {
                       outline-none 
                     "
                     onChange={handleContentChange}
+                    value={content}
                     />
                 )
               }

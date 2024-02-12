@@ -5,12 +5,13 @@ import { X } from "lucide-react";
 
 interface NoteCardProps {
   note: {
+    id: number
     date: Date
     content: string
   }
 }
 
-export function NoteCard({ note }: NoteCardProps){
+export function NoteCard({ note, onNoteDeleted }){
   return (
     <Dialog.Root>
       <Dialog.Trigger className="
@@ -57,6 +58,7 @@ export function NoteCard({ note }: NoteCardProps){
 
           <button 
             type="button"
+            onClick={onNoteDeleted(note.id)}
             className="w-full bg-slate-800 py-4 text-center text-sm 
             text-slate-300 outline-none font-medium group"
           >
