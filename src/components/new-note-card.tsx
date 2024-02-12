@@ -58,7 +58,7 @@ export function NewNoteCard({ onNoteCreated }: newNoteCardProps) {
     speechRecognition.lang = 'pt-BR';
     speechRecognition.continuous = true; //gravar ate o usuario interromper manualmente
     speechRecognition.maxAlternatives = 1; //quantidade de alternativas para uma palavra falada
-    speechRecognition.interinResults = true; //traz os resultados enquanto o usuário falar
+    speechRecognition.interimResults = true; //traz os resultados enquanto o usuário falar
     
     speechRecognition.onresult = (event) => {
       const transcription = Array.from(event.results).reduce((text, result) => {
