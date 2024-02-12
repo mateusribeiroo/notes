@@ -11,7 +11,21 @@ interface Note {
 }
 
 export function App() {
-  const [notes, setNotes] = useState<Note[]>([]);
+  const [search, setSearch] = useState("");
+
+  const [notes, setNotes] = useState<Note[]>(() => {
+    const notesOnStorage = localStorage.getItem('notes');
+
+    if(notesOnStorage){
+      return JSON.parse(notesOnStorage);
+    }
+
+    return [];
+  });
+
+  function handleSearch(event: ChangeEvent<HTMLInputElement>){
+    setSearch(event.target.value);
+  }
 
   function onNoteCreated(content: string){
     const newNote = {
@@ -24,7 +38,7 @@ export function App() {
 
     setNotes(notesArray);
 
-    localStorage.setItem('notes', JSON.stringfy(notesArray));
+    localStorage.setItem('notes', JSON.stringify(notesArray));
   }
 
   function onNoteDeleted(id: number){ // implementar
@@ -34,6 +48,8 @@ export function App() {
     // setNotes([...noteList]);]
     // toast.success("Nota removida com sucesso");
   }
+
+  const filteredNotes = search !== "" ? notes.filter(note => note.content.includes(search)) : notes;
 
   return (
     <div className="mx-auto max-w-6xl my-12 space-y-6">
@@ -45,6 +61,7 @@ export function App() {
           placeholder="Busque em suas notas..."
           className="w-full bg-transparent text-3xl font-semibold tracking-tight
           placeholder:text-slate-500 outline-none"
+          onChange={handleSearch}
         />
       </form>
 
@@ -55,7 +72,7 @@ export function App() {
         <NewNoteCard onNoteCreated={onNoteCreated} />
         
         {
-          notes.map(note => {
+          filteredNotes.map(note => {
             return <NoteCard onNoteDeleted={onNoteDeleted} key={note.id} note={note} />
           })
         }
