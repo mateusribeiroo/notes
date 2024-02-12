@@ -1,6 +1,6 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "sonner"
 
 interface newNoteCardProps {
@@ -21,11 +21,10 @@ export function NewNoteCard({ onNoteCreated }: newNoteCardProps) {
     if(event.target.value === "") setShowText(true);
   }
 
-  function handleSaveNote(event: FormEvent){
+  function handleSaveNote(event: FormEvent<HTMLFormElement>){
     event.preventDefault();
 
     if(event.target.value != ""){
-      console.log(content)
       onNoteCreated(content);
       setContent("");
       setShowText(true);
