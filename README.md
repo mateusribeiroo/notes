@@ -9,7 +9,7 @@ This was my first time using tailwind and i loved it. Im sure will keep using it
 
 Also was my first time using SpeechRecognitionAPI and it was way more simple that i expected. Very usefull and interesting.
 
-## Libs i used
+## Libs I used
 - lucid (for icons)
 - sonner (for toasts)
 - date-fns (to deal with timestamps)
