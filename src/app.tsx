@@ -2,7 +2,8 @@ import logo from "./assets/logo.svg";
 import { NoteCard } from "./components/note-card.tsx";
 import { NewNoteCard } from "./components/new-note-card.tsx";
 import { ChangeEvent, useState, FormEvent } from 'react';
-//import { toast } from "sonner";
+import { toast } from "sonner";
+import { X } from "lucide-react";
 
 interface Note {
   id: string
@@ -48,6 +49,8 @@ export function App() {
     setNotes(newNotes);
 
     localStorage.setItem("notes", JSON.stringify(newNotes));
+
+    toast.success("Nota deletada com sucesso!");
   }
 
   const filteredNotes = search !== "" ? notes.filter(note => 
