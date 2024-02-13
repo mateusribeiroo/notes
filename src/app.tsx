@@ -1,8 +1,8 @@
 import logo from "./assets/logo.svg";
 import { NoteCard } from "./components/note-card.tsx";
 import { NewNoteCard } from "./components/new-note-card.tsx";
-import { useState } from "react";
-import { toast } from "sonner";
+import { ChangeEvent, useState, FormEvent } from 'react';
+//import { toast } from "sonner";
 
 interface Note {
   id: string
@@ -41,12 +41,13 @@ export function App() {
     localStorage.setItem('notes', JSON.stringify(notesArray));
   }
 
-  function onNoteDeleted(id: number){ // implementar
-    // const i = notes.findIndex(item => item.id == id);
-    // const noteList = [...notes];
-    // noteList.splice(i, 1);
-    // setNotes([...noteList]);]
-    // toast.success("Nota removida com sucesso");
+  function onNoteDeleted(id: string){ 
+    
+    const newNotes = notes.filter((element) => element.id != id)
+
+    setNotes(newNotes);
+
+    localStorage.setItem("notes", JSON.stringify(newNotes));
   }
 
   const filteredNotes = search !== "" ? notes.filter(note => 
