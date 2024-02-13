@@ -3,7 +3,7 @@ import { NoteCard } from "./components/note-card.tsx";
 import { NewNoteCard } from "./components/new-note-card.tsx";
 import { ChangeEvent, useState, FormEvent } from 'react';
 import { toast } from "sonner";
-import { X } from "lucide-react";
+import { Trash2  } from "lucide-react";
 
 interface Note {
   id: string
@@ -53,14 +53,37 @@ export function App() {
     toast.success("Nota deletada com sucesso!");
   }
 
+  function onAllNotesDeleted(){
+    localStorage.removeItem("notes");
+
+    if(notes.length == 0)
+      return toast.error("Você não possui notas salvas");
+    
+    setNotes([]);
+    toast.success("Todas as notas foram deletadas!");
+  }
+
   const filteredNotes = search !== "" ? notes.filter(note => 
     note.content.toLocaleLowerCase().includes(search.toLocaleLowerCase())
   ) : notes;
 
   return (
     <div className="mx-auto max-w-6xl my-12 space-y-6 px-5">
-      <img src={logo} alt="logotipo" />
-      
+      <div className="w-full flex flex-row justify-between">
+        <img src={logo} alt="logotipo" />
+
+        <button 
+          onClick={onAllNotesDeleted}
+          className="
+            bg-slate-700 
+            p-2 
+            rounded-md 
+            hover:bg-slate-800 
+            group
+          ">
+          <Trash2 className="group-hover:text-red-500" />
+        </button>
+      </div>
       <form className="w-full">
         <input 
           type="text" 
@@ -79,7 +102,7 @@ export function App() {
         
         {
           filteredNotes.map(note => {
-            return <NoteCard onNoteDeleted={onNoteDeleted} key={note.id} note={note} />
+            return <NoteCard onNoteDeleted={onNoteDeleted} onAllNotesDeleted={onAllNotesDeleted} key={note.id} note={note} />
           })
         }
       </div>
