@@ -1,7 +1,7 @@
 import logo from "./assets/logo.svg";
 import { NoteCard } from "./components/note-card.tsx";
 import { NewNoteCard } from "./components/new-note-card.tsx";
-import { ChangeEvent, useState, FormEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { toast } from "sonner";
 import { Trash2  } from "lucide-react";
 
@@ -102,7 +102,7 @@ export function App() {
         
         {
           filteredNotes.map(note => {
-            return <NoteCard onNoteDeleted={onNoteDeleted} onAllNotesDeleted={onAllNotesDeleted} key={note.id} note={note} />
+            return <NoteCard onNoteDeleted={onNoteDeleted} key={note.id} note={note} />
           })
         }
       </div>
