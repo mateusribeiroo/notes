@@ -157,7 +157,7 @@ export function NewNoteCard({ onNoteCreated }: newNoteCardProps) {
             ) : (
               <button 
                 type="button"
-                onClick={handleSaveNote}
+                onClick={() => handleSaveNote}
                 className="bg-lime-400 w-full text-center font-medium py-4 text-lime-950
                 hover:bg-lime-500">
                   Salvar nota
