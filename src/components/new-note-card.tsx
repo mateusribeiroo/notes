@@ -25,9 +25,7 @@ export function NewNoteCard({ onNoteCreated }: newNoteCardProps) {
   }
 
   function handleSaveNote(event: React.MouseEvent<HTMLButtonElement>){
-    console.log("entrou " + event);
     event.preventDefault();
-    console.log("depois de preventDefault " + event);
 
     if(content == ""){
       return toast.error("Nota não pode ser vazia");

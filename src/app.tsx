@@ -86,6 +86,7 @@ export function App() {
       </div>
       <form className="w-full">
         <input 
+          id="inputIdFiller"
           type="text" 
           placeholder="Busque em suas notas..."
           className="w-full bg-transparent text-3xl font-semibold tracking-tight
